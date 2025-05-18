@@ -1,0 +1,45 @@
+<div class="tool-section">
+    <h2><i class="fas fa-sync-alt" title="Convert to WebP"></i>Image to WebP Converter</h2>
+
+    <div id="webp-drop-zone" class="drop-zone mb-6" title="Drag and drop images here or click to select files">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p class="font-semibold">Drop images here or click to upload</p>
+        <p class="text-sm text-neutral-medium">(Supports JPG, PNG, GIF, etc.)</p>
+    </div>
+    <input type="file" id="webp-file-input" multiple accept="image/*" class="hidden" />
+
+    <div class="controls-panel grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+        <div>
+            <label for="webp-quality" class="block text-sm font-medium text-neutral-lighter mb-1">Quality: <span id="webp-quality-value" class="font-bold text-primary">80%</span></label>
+            <input type="range" id="webp-quality" min="10" max="100" step="5" value="80" class="w-full h-3 bg-neutral-dark rounded-lg appearance-none cursor-pointer" title="Adjust WebP compression quality (10=low, 100=high)" />
+        </div>
+        <div class="flex flex-col space-y-4 pt-2 md:pt-0 md:pl-4">
+             <label class="flex items-center text-sm text-neutral-lighter cursor-pointer" title="Enable lossless compression (results in larger files but perfect quality)">
+                <input type="checkbox" id="webp-lossless" class="form-checkbox h-5 w-5 text-primary bg-neutral-dark border-neutral-medium rounded focus:ring-primary focus:ring-offset-neutral-darker" />
+                <span class="ml-2">Lossless Compression</span>
+            </label>
+            <label class="flex items-center text-sm text-neutral-lighter cursor-pointer" title="Remove image metadata like EXIF, GPS data, etc.">
+                <input type="checkbox" id="webp-strip-meta" class="form-checkbox h-5 w-5 text-primary bg-neutral-dark border-neutral-medium rounded focus:ring-primary focus:ring-offset-neutral-darker" />
+                <span class="ml-2">Strip Metadata</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="text-center mb-8">
+        <button id="webp-convert-button" class="btn btn-primary text-base px-10 py-3" title="Start converting selected images to WebP format">
+            <i class="fas fa-cogs"></i>Convert to WebP
+        </button>
+    </div>
+
+    <div id="webp-file-list" class="preview-card-grid mb-6">
+        <p class="text-center text-neutral-medium col-span-full initial-message hidden">No images selected. Drag and drop or click above to add images.</p>
+    </div>
+
+    <div id="webp-loading" class="loading-spinner-container hidden">
+        <div class="spinner"></div>
+        <p class="ml-4 text-neutral-light">Processing images, please wait...</p>
+    </div>
+
+    <div id="webp-download-links" class="download-links-container">
+        </div>
+</div>

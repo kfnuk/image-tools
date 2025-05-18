@@ -1,0 +1,101 @@
+<section class="tool-section image-resizer-tool bg-neutral-darker p-4 sm:p-6 rounded-lg shadow-xl">
+    <h2 class="text-2xl font-semibold text-neutral-lightest mb-6 pb-3 border-b border-neutral-dark flex items-center">
+        <i class="fas fa-expand-arrows-alt mr-3 text-primary"></i>Image Resizer
+    </h2>
+
+    <div id="notification-area" class="fixed top-20 right-5 z-[101] w-full max-w-xs sm:max-w-sm">
+        </div>
+
+    <div id="upload-area" class="drop-zone mb-6" title="Drag and drop an image here or click to select a file">
+        <i class="fas fa-cloud-upload-alt"></i> <p class="font-semibold text-neutral-lightest">Click to upload or drag & drop an image</p>
+        <p class="text-sm text-neutral-medium">Supports JPG, PNG, WEBP</p>
+        <input type="file" id="file-input" class="hidden" accept="image/jpeg, image/png, image/webp">
+    </div>
+
+    <div id="editor-interface" class="hidden md:flex md:flex-row flex-col gap-6">
+
+        <div class="controls md:w-2/5 lg:w-1/3 w-full bg-neutral-dark p-5 rounded-lg shadow-md">
+            <fieldset class="border border-neutral-medium rounded-md p-4 mb-4">
+                <legend class="text-sm font-medium text-neutral-light px-2">Resize Options</legend>
+                <div class="space-y-4">
+                    <div>
+                        <label for="resize-option" class="block text-sm font-medium text-neutral-lighter mb-1">Mode:</label>
+                        <select id="resize-option" class="form-select w-full bg-neutral-darker border-neutral-medium text-neutral-lightest focus:ring-primary focus:border-primary rounded-md">
+                            <option value="original">Original Size</option>
+                            <option value="percentage">By Percentage</option>
+                            <option value="custom">Custom Dimensions</option>
+                            <option value="320x240">320x240 (QVGA)</option>
+                            <option value="640x480">640x480 (VGA)</option>
+                            <option value="800x600">800x600 (SVGA)</option>
+                            <option value="1024x768">1024x768 (XGA)</option>
+                            <option value="1280x720">1280x720 (HD 720p)</option>
+                            <option value="1920x1080">1920x1080 (Full HD 1080p)</option>
+                        </select>
+                    </div>
+
+                    <div id="percentage-field" class="hidden space-y-2">
+                        <label for="percentage-value" class="block text-sm font-medium text-neutral-lighter">Scale:</label>
+                        <input type="range" id="percentage-value" min="1" max="200" value="100" class="w-full h-2 bg-neutral-medium rounded-lg appearance-none cursor-pointer accent-primary">
+                        <div class="text-sm text-neutral-light text-center" id="percentage-display">100%</div>
+                        <p class="text-xs text-neutral-medium dimension-info">Original: <span id="original-dimensions">N/A</span></p>
+                        <p class="text-xs text-neutral-medium dimension-info">New: <span id="new-dimensions">N/A</span></p>
+                    </div>
+
+                    <div id="custom-size-fields" class="hidden grid grid-cols-2 gap-3 items-end">
+                        <div>
+                            <label for="custom-width" class="block text-sm font-medium text-neutral-lighter mb-1">Width (px):</label>
+                            <input type="number" id="custom-width" placeholder="e.g., 800" class="form-input w-full bg-neutral-darker border-neutral-medium text-neutral-lightest focus:ring-primary focus:border-primary rounded-md">
+                        </div>
+                        <div>
+                            <label for="custom-height" class="block text-sm font-medium text-neutral-lighter mb-1">Height (px):</label>
+                            <input type="number" id="custom-height" placeholder="e.g., 600" class="form-input w-full bg-neutral-darker border-neutral-medium text-neutral-lightest focus:ring-primary focus:border-primary rounded-md">
+                        </div>
+                        <div class="col-span-2 mt-1">
+                             <label class="flex items-center space-x-2 cursor-pointer toggle-container">
+                                <span class="text-sm text-neutral-lighter toggle-switch-label">Lock Aspect Ratio:</span>
+                                <input type="checkbox" id="lock-ratio" class="hidden toggle-switch-input" checked>
+                                <span class="toggle-switch">
+                                    <span class="toggle-slider"></span>
+                                </span>
+                            </label>
+                            <p id="aspect-ratio" class="text-xs text-neutral-medium mt-1 hidden">Aspect Ratio: N/A</p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-neutral-medium rounded-md p-4 mb-4">
+                <legend class="text-sm font-medium text-neutral-light px-2">Output Settings</legend>
+                <div class="space-y-4">
+                    <div>
+                        <label for="format" class="block text-sm font-medium text-neutral-lighter mb-1">Format:</label>
+                        <select id="format" class="form-select w-full bg-neutral-darker border-neutral-medium text-neutral-lightest focus:ring-primary focus:border-primary rounded-md">
+                            <option value="image/jpeg">JPEG</option>
+                            <option value="image/png">PNG</option>
+                            <option value="image/webp">WEBP</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="quality" class="block text-sm font-medium text-neutral-lighter mb-1">Quality:</label>
+                        <input type="range" id="quality" min="10" max="100" value="85" class="w-full h-2 bg-neutral-medium rounded-lg appearance-none cursor-pointer accent-primary">
+                        <div class="text-sm text-neutral-light text-center mt-1" id="quality-value">85%</div>
+                    </div>
+                    <div>
+                        <label for="new-filename" class="block text-sm font-medium text-neutral-lighter mb-1">Filename (optional):</label>
+                        <input type="text" id="new-filename" placeholder="optimised-image" class="form-input w-full bg-neutral-darker border-neutral-medium text-neutral-lightest focus:ring-primary focus:border-primary rounded-md">
+                    </div>
+                </div>
+            </fieldset>
+
+            <button id="process-button" class="btn btn-primary w-full mt-2" disabled>
+                <i class="fas fa-cogs mr-2"></i>Optimise & Download
+            </button>
+        </div>
+
+        <div id="preview-container" class="preview-container flex-grow hidden md:w-3/5 lg:w-2/3 w-full bg-neutral-dark p-5 rounded-lg shadow-md flex items-center justify-center min-h-[300px] md:min-h-[400px]">
+            <canvas id="preview-canvas" class_name="max-w-full max-h-[60vh] md:max-h-[70vh] rounded-md bg-white shadow-inner hidden"></canvas>
+            <div id="spinner" class="spinner" style="display: none;">
+                </div>
+        </div>
+    </div>
+</section>

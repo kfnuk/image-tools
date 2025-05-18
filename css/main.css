@@ -1,0 +1,844 @@
+/* Import Google Font (Inter) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overscroll-behavior-y: contain;
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
+    -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+    /* Styles from your original style.css like background, color, font-family are handled by Tailwind body classes and existing main.css */
+}
+
+/* --- Header --- */
+.nav-link {
+    color: #D1D5DB; /* neutral-lighter */
+    padding: 0.65rem 0.85rem;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.15s ease-out;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #F9FAFB; /* header-text */
+}
+
+.nav-link.active-link {
+    background-color: rgba(14, 165, 233, 0.15); /* primary with less opacity */
+    color: #F9FAFB; /* header-text */
+    font-weight: 600;
+    box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.4);
+}
+
+.nav-link-icon {
+    color: #9CA3AF; /* neutral-light */
+    margin-right: 0.4rem;
+    transition: color 0.15s ease-out;
+}
+
+.nav-link:hover .nav-link-icon,
+.nav-link.active-link .nav-link-icon {
+    color: #F9FAFB; /* header-text */
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 0.85rem 1.15rem;
+    color: #D1D5DB; /* neutral-lighter */
+    font-size: 1rem;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out;
+}
+.mobile-nav-link:hover {
+    background-color: #374151; /* neutral-dark */
+    color: #F9FAFB; /* header-text */
+}
+.mobile-nav-link.active-link {
+    background-color: #0284C7; /* primary-dark */
+    color: #F9FAFB; /* header-text */
+    font-weight: 600;
+}
+
+/* --- Main Content & Tool Sections --- */
+#app-content {
+    min-height: calc(100vh - 4rem - 4.5rem); /* Assuming header and footer height */
+}
+
+.tool-section {
+    background-color: #1F2937; /* neutral-darker */
+    padding: clamp(1.5rem, 5vw, 2.5rem); /* Responsive padding */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(55, 65, 81, 0.6);
+    margin-bottom: 3rem;
+}
+
+.tool-section h2 {
+    font-size: clamp(1.5rem, 4vw, 1.875rem); /* Responsive font size */
+    font-weight: 600;
+    color: #F3F4F6; /* neutral-lightest */
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #374151; /* neutral-dark */
+    display: flex;
+    align-items: center;
+}
+.tool-section h2 i {
+    color: #0EA5E9; /* primary */
+    margin-right: 0.85rem;
+    font-size: 0.9em; /* Relative to h2 size */
+}
+
+/* --- Drop Zone (General, can be used by other tools too) --- */
+.drop-zone { /* This is a general class, #upload-area will be more specific for resizer */
+    border: 2px dashed #4B5563; /* neutral-dark */
+    border-radius: 10px;
+    min-height: 220px;
+    background-color: rgba(17, 24, 39, 0.7); /* neutral-darkest with alpha */
+    color: #9CA3AF; /* neutral-light */
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out;
+    cursor: pointer;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.drop-zone:hover {
+    background-color: #374151; /* neutral-dark */
+    border-color: #0EA5E9; /* primary */
+    color: #F3F4F6; /* neutral-lightest */
+    transform: scale(1.015);
+}
+.drop-zone i.fa-cloud-upload-alt, .drop-zone i.fa-file-image {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #6B7280; /* neutral-medium */
+    transition: color 0.2s ease-out, transform 0.2s ease-out;
+}
+.drop-zone:hover i.fa-cloud-upload-alt, .drop-zone:hover i.fa-file-image {
+    color: #0EA5E9; /* primary */
+    transform: translateY(-3px);
+}
+.drop-zone p.font-semibold { /* Tailwind class, ensure it's applied in HTML */
+    color: #D1D5DB; /* neutral-lighter */
+    font-size: 1.1rem;
+}
+.drop-zone p.text-sm { /* Tailwind class */
+    margin-top: 0.25rem;
+}
+
+/* --- Controls Panel (General) --- */
+.controls-panel { /* General styling for control panels in tools */
+    background-color: transparent;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.controls-panel label,
+label.flex { /* Tailwind class */
+    color: #D1D5DB; /* neutral-lighter */
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.controls-panel input[type="range"] {
+    height: 0.75rem;
+}
+.controls-panel input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #0EA5E9; /* primary */
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #1F2937; /* neutral-darker */
+    box-shadow: 0 0 5px rgba(14, 165, 233, 0.5);
+}
+.controls-panel input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #0EA5E9; /* primary */
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #1F2937; /* neutral-darker */
+    box-shadow: 0 0 5px rgba(14, 165, 233, 0.5);
+}
+
+/* General Form Elements (enhanced by Tailwind's form plugin if used, or custom styled) */
+.form-input,
+.form-select,
+.form-checkbox, /* For Tailwind Forms plugin compatibility */
+.image-resizer-tool input[type="number"], /* Specific to resizer inputs */
+.image-resizer-tool input[type="text"],
+.image-resizer-tool select {
+    accent-color: #0EA5E9; /* primary */
+    background-color: #374151; /* neutral-dark */
+    border-color: #4B5563; /* neutral-medium */
+    color: #F3F4F6; /* neutral-lightest */
+    border-radius: 6px;
+    transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out, background-color 0.15s ease-out;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem; /* Base padding, select will add more for arrow */
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+}
+.form-input::placeholder,
+.image-resizer-tool input::placeholder {
+    color: #6B7280; /* neutral-medium */
+    font-size: 0.9rem;
+}
+
+.form-select,
+.image-resizer-tool select {
+    padding-right: 2.5rem; /* Ensure space for Tailwind's default arrow or custom arrow */
+    -webkit-appearance: none; /* Custom arrow for resizer select */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%239CA3AF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* neutral-light arrow */
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1em 1em;
+}
+.form-select option,
+.image-resizer-tool select option {
+    background-color: #1F2937; /* neutral-darker */
+    color: #F3F4F6; /* neutral-lightest */
+}
+.form-input:focus,
+.form-select:focus,
+.form-checkbox:focus,
+.image-resizer-tool input[type="number"]:focus,
+.image-resizer-tool input[type="text"]:focus,
+.image-resizer-tool select:focus,
+.controls-panel input[type="range"]:focus {
+    border-color: #0EA5E9; /* primary */
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+    outline: none;
+    background-color: #4B5563; /* Slightly lighter on focus - neutral-medium */
+}
+.image-resizer-tool input[type="number"]:read-only,
+.image-resizer-tool input[type="text"]:read-only {
+    background-color: #2c3543; /* Darker for readonly, distinct from neutral-dark */
+    color: #9CA3AF; /* neutral-light */
+    cursor: not-allowed;
+}
+
+
+/* Custom Toggle Switch (General, can be used by other tools) */
+.custom-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    background-color: #4B5563; /* neutral-medium */
+    border-radius: 22px;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.custom-toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: white;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.custom-toggle-checkbox:checked + .custom-toggle-switch {
+    background-color: #0EA5E9; /* primary */
+}
+.custom-toggle-checkbox:checked + .custom-toggle-switch::after {
+    transform: translateX(18px);
+}
+.custom-toggle-checkbox:focus + .custom-toggle-switch {
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25); /* primary focus */
+}
+
+
+/* --- Buttons (General) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out, box-shadow 0.1s ease-out, transform 0.08s ease-out;
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.btn:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+    transform: translateY(-1.5px);
+}
+.btn:active, .btn:focus {
+    transform: translateY(0px);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,0.1);
+    outline: none;
+}
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3), inset 0 2px 3px rgba(0,0,0,0.1); /* primary focus */
+}
+.btn:disabled,
+.image-resizer-tool button:disabled { /* Ensure resizer button disabled state matches */
+    background-color: #4B5563; /* neutral-medium */
+    color: #9CA3AF; /* neutral-light */
+    cursor: not-allowed;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn i {
+    margin-right: 0.6rem;
+    font-size: 0.95em;
+}
+
+.btn-primary {
+    background-color: #0EA5E9; /* primary */
+    color: #ffffff;
+    border-color: transparent;
+}
+.btn-primary:hover:not(:disabled) {
+    background-color: #0284C7; /* primary-dark */
+}
+
+.btn-secondary {
+    background-color: #10B981; /* secondary */
+    color: white;
+    border-color: transparent;
+}
+.btn-secondary:hover:not(:disabled) {
+    background-color: #059669; /* secondary-dark */
+}
+
+.btn-danger {
+    background-color: #EF4444; /* danger */
+    color: white;
+    border-color: transparent;
+}
+.btn-danger:hover:not(:disabled) {
+    background-color: #DC2626; /* danger-dark */
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid #4B5563; /* neutral-medium */
+    color: #D1D5DB; /* neutral-lighter */
+}
+.btn-outline:hover:not(:disabled) {
+    background-color: rgba(75, 85, 99, 0.2); /* neutral-medium with alpha */
+    border-color: #0EA5E9; /* primary */
+    color: #F3F4F6; /* neutral-lightest */
+}
+
+/* --- File Preview Cards (General) --- */
+.preview-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.preview-card {
+    background: #374151; /* neutral-dark */
+    border-radius: 8px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.18);
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    border: 1px solid rgba(75, 85, 99, 0.7); /* neutral-medium with alpha */
+}
+.preview-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+}
+
+.preview-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    border: 1px solid #6B7280; /* neutral-medium */
+    background-color: #1F2937; /* neutral-darker */
+}
+
+.preview-card p {
+    font-size: 0.8rem;
+    color: #D1D5DB; /* neutral-lighter */
+    word-break: break-all;
+    margin: 0.25rem 0 0;
+    line-height: 1.3;
+    height: 2.6em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(239, 68, 68, 0.8); /* danger with alpha */
+    color: white;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 0.9rem;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out;
+}
+.remove-btn:hover {
+    background-color: #DC2626; /* danger-dark */
+    transform: scale(1.15);
+}
+
+/* --- Download Links --- */
+.download-links-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+/* --- Loading Spinner (General) --- */
+.loading-spinner-container { /* For initial page load spinner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    color: #9CA3AF; /* neutral-light */
+    min-height: 80px;
+}
+
+.spinner { /* General spinner class, can be used by #spinner in resizer */
+    border: 5px solid #374151; /* neutral-dark */
+    border-top: 5px solid #0EA5E9; /* primary */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Canvas Elements --- */
+canvas.processed-image-canvas, /* For other tools */
+#crop-canvas, /* For crop tool */
+#preview-canvas, /* For image resizer tool, ID from script.js */
+#resizer-preview-canvas { /* If you have another alias */
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #4B5563; /* neutral-medium */
+    background-color: #111827; /* neutral-darkest, though resizer HTML sets its canvas to white */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+/* Specific canvas styling for resizer if needed, from its HTML: */
+.image-resizer-tool #preview-canvas {
+    background-color: #ffffff; /* White background for the image itself if it has transparency */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* From style.css */
+    object-fit: contain; /* From style.css */
+    display: block; /* From style.css */
+}
+.image-resizer-tool #preview-canvas.hidden { /* From script.js logic */
+    display: none;
+}
+
+
+/* --- Global Messages (from main.js) --- */
+#global-message-container { /* Ensure this is defined if not already */
+    position: fixed;
+    bottom: 1.25rem; /* Equivalent to bottom-5 */
+    right: 1.25rem; /* Equivalent to right-5 */
+    z-index: 100; /* Ensure it's above most content */
+}
+.global-message {
+    padding: 0.9rem 1.3rem;
+    margin-bottom: 0.85rem;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 280px;
+    border-left-width: 5px;
+    border-left-style: solid;
+    opacity: 0;
+    transform: translateX(20px); /* Start off-screen for animation */
+    animation: slideInMessage 0.3s ease-out forwards;
+}
+
+@keyframes slideInMessage {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.global-message.success {
+    background-color: #10B981; /* secondary */
+    border-left-color: #059669; /* secondary-dark */
+}
+.global-message.error {
+    background-color: #EF4444; /* danger */
+    border-left-color: #DC2626; /* danger-dark */
+}
+.global-message.info {
+    background-color: #0EA5E9; /* primary */
+    border-left-color: #0284C7; /* primary-dark */
+}
+.global-message .close-message {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 1.3rem;
+    transition: color 0.1s;
+    cursor: pointer;
+}
+.global-message .close-message:hover {
+    color: white;
+}
+
+/* --- Styles for Image Resizer Tool (Ported from style.css) --- */
+
+/* Upload area specific to resizer if #upload-area is used in HTML */
+.image-resizer-tool #upload-area {
+  background: #2d3748; /* Tailwind's gray-800, slightly different from general .drop-zone */
+  border: 2px dashed #4B5563; /* neutral-medium */
+  border-radius: 10px; /* Consistent with .drop-zone */
+  /* width: 100%; max-width: 600px; */ /* Handled by Tailwind in HTML */
+  min-height: 200px;
+  display: flex; /* Handled by Tailwind in HTML */
+  flex-direction: column; /* Handled by Tailwind in HTML */
+  align-items: center; /* Handled by Tailwind in HTML */
+  justify-content: center; /* Handled by Tailwind in HTML */
+  text-align: center; /* Handled by Tailwind in HTML */
+  /* margin: 0 auto 20px auto; */ /* Handled by Tailwind in HTML */
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  color: #9CA3AF; /* neutral-light */
+  font-size: 1.1rem; /* From style.css */
+  padding: 20px; /* From style.css */
+  box-sizing: border-box; /* From style.css */
+}
+.image-resizer-tool #upload-area:hover {
+  background-color: #1F2937; /* neutral-darker */
+  border-color: #0EA5E9; /* primary */
+}
+.image-resizer-tool #upload-area.hidden { /* From script.js logic */
+    display: none;
+}
+.image-resizer-tool .upload-icon { /* Class from resizer HTML */
+  color: #9CA3AF; /* neutral-light */
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.image-resizer-tool #upload-area:hover .upload-icon {
+  color: #0EA5E9; /* primary */
+}
+
+/* Controls specific to resizer */
+.image-resizer-tool .controls {
+  background: #1F2937; /* neutral-darker, was #1a202c */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  /* width, max-width handled by Tailwind in HTML */
+  display: flex; /* Handled by Tailwind in HTML */
+  flex-direction: column; /* Handled by Tailwind in HTML */
+  gap: 20px; /* From style.css */
+}
+
+.image-resizer-tool .controls fieldset {
+  border: 1px solid #374151; /* neutral-dark, was #354154 */
+  border-radius: 8px;
+  padding: 20px 15px 15px 15px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.image-resizer-tool .controls legend {
+  padding: 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #9CA3AF; /* neutral-light, was #7f8c9b */
+}
+
+.image-resizer-tool label { /* General label styling within resizer */
+  font-size: 0.9rem;
+  color: #D1D5DB; /* neutral-lighter */
+  /* margin-bottom: -8px; */ /* Removed for Tailwind spacing */
+}
+
+/* Range input specific to resizer tool */
+.image-resizer-tool input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #4B5563; /* neutral-medium, was #4a5568 */
+  border-radius: 10px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity .15s ease-in-out;
+  margin-top: 5px;
+}
+.image-resizer-tool input[type=range]:hover {
+  opacity: 1;
+}
+.image-resizer-tool input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #0EA5E9; /* primary, was #5a67d8 */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #1F2937; /* neutral-darker, was #1a202c */
+  box-shadow: 0 0 5px rgba(14, 165, 233, 0.5); /* primary with alpha */
+}
+.image-resizer-tool input[type=range]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #0EA5E9; /* primary */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #1F2937; /* neutral-darker */
+  box-shadow: 0 0 5px rgba(14, 165, 233, 0.5);
+}
+
+/* Toggle Switch specific to resizer (if not using general .custom-toggle-switch) */
+/* This uses classes from your resizer's style.css directly */
+.image-resizer-tool .toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+.image-resizer-tool .toggle-switch-label {
+  font-size: 0.9rem;
+  color: #D1D5DB; /* neutral-lighter */
+  margin-right: 10px;
+}
+.image-resizer-tool .toggle-switch { /* The container for the visual switch parts */
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.image-resizer-tool .toggle-switch input.toggle-switch-input { /* The actual checkbox, hidden */
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.image-resizer-tool .toggle-slider { /* The track of the switch */
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4B5563; /* neutral-medium (Off state) */
+  transition: .3s;
+  border-radius: 24px;
+}
+.image-resizer-tool .toggle-slider:before { /* The knob of the switch */
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+.image-resizer-tool input.toggle-switch-input:checked + .toggle-switch .toggle-slider {
+  background-color: #0EA5E9; /* primary (On state) */
+}
+.image-resizer-tool input.toggle-switch-input:focus + .toggle-switch .toggle-slider {
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25); /* primary focus */
+}
+.image-resizer-tool input.toggle-switch-input:checked + .toggle-switch .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+
+.image-resizer-tool #aspect-ratio,
+.image-resizer-tool #quality-value, /* ID from script.js */
+.image-resizer-tool #percentage-display { /* ID from script.js */
+  font-size: 0.85rem;
+  color: #9CA3AF; /* neutral-light */
+}
+.image-resizer-tool .dimension-info { /* Class from script.js */
+    font-size: 0.85rem;
+    color: #9CA3AF; /* neutral-light */
+    margin-top: -8px; /* Fine-tune from style.css */
+    margin-bottom: 0;
+}
+.image-resizer-tool #aspect-ratio.hidden { /* From script.js logic */
+    display: none;
+}
+
+/* Spinner specific to resizer if #spinner is used and needs different styling from .spinner */
+.image-resizer-tool #spinner {
+  border: 5px solid #4B5563; /* neutral-medium, was #4a5568 */
+  border-top: 5px solid #0EA5E9; /* primary, was #5a67d8 */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite; /* From style.css, slightly different timing */
+  /* margin: 30px auto; */ /* Handled by flex centering in preview-container */
+}
+/* Keyframes for spin is already defined globally, ensure it's compatible or redefine if necessary */
+
+/* Notification Area for Image Resizer Tool (from style.css) */
+/* This is separate from global-message-container */
+.image-resizer-tool #notification-area {
+  /* position, top, right, z-index, display, gap, max-width handled by Tailwind in HTML */
+}
+
+.image-resizer-tool .notification {
+  background-color: #1F2937; /* neutral-darker, was #1a202c */
+  color: #F3F4F6; /* neutral-lightest */
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+  border-left: 4px solid #0EA5E9; /* Default (info) border color - primary */
+  opacity: 0;
+  transform: translateX(100%);
+  /* Animation timing from style.css. Note: global messages have different animation. */
+  animation: resizerSlideInNotification 0.3s forwards, resizerFadeOutNotification 0.3s forwards 3.7s;
+}
+
+.image-resizer-tool .notification.error {
+  border-left-color: #EF4444; /* danger */
+}
+.image-resizer-tool .notification.success {
+  border-left-color: #10B981; /* secondary */
+}
+
+@keyframes resizerSlideInNotification {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes resizerFadeOutNotification {
+  from {
+      opacity: 1;
+      transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Preview container specific to resizer */
+.image-resizer-tool #preview-container {
+  /* flex-grow, display, justify, align handled by Tailwind */
+  background: #1F2937; /* neutral-darker, was #1a202c */
+  border-radius: 10px;
+  padding: 20px;
+  /* min-height handled by Tailwind */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+.image-resizer-tool #preview-container.hidden { /* From script.js logic */
+    display: none;
+}
+
+
+/* --- Responsive Adjustments (General) --- */
+@media (max-width: 768px) { /* md breakpoint */
+    .tool-section {
+        padding: clamp(1rem, 4vw, 1.5rem);
+        border-radius: 10px;
+    }
+    .tool-section h2 {
+        font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    .drop-zone, .image-resizer-tool #upload-area { /* Apply to resizer's upload area too */
+        min-height: 180px;
+        padding: 20px;
+    }
+    .drop-zone i.fa-cloud-upload-alt, .drop-zone i.fa-file-image,
+    .image-resizer-tool #upload-area i.fa-cloud-upload-alt {
+        font-size: 2.5rem;
+    }
+    .drop-zone p.font-semibold,
+    .image-resizer-tool #upload-area p.font-semibold { /* If such class is used in resizer HTML */
+        font-size: 1rem;
+    }
+    .preview-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1rem;
+    }
+    .preview-card img {
+        height: 90px;
+    }
+    .btn {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.85rem;
+    }
+
+    /* Resizer specific responsive adjustments from style.css */
+    /* #editor-interface flex-direction: column is handled by Tailwind md:flex-row flex-col */
+    .image-resizer-tool .controls {
+        /* max-width: 600px; */ /* Let Tailwind handle width */
+        margin-bottom: 25px; /* From style.css */
+    }
+    .image-resizer-tool #preview-container {
+        /* width: 100%; max-width: 600px; */ /* Let Tailwind handle width */
+        min-height: 300px; /* From style.css */
+    }
+    .image-resizer-tool #notification-area { /* From style.css for small screens */
+        /* top, right, left, max-width handled by Tailwind in HTML */
+        align-items: center; /* From style.css */
+    }
+    .image-resizer-tool .notification { /* From style.css for small screens */
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) { /* sm breakpoint or smaller */
+    .preview-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    }
+     .tool-section h2 i {
+        font-size: 0.8em;
+        margin-right: 0.5rem;
+    }
+    /* Stack custom size inputs on small screens for resizer tool */
+    .image-resizer-tool #custom-size-fields.grid { /* Ensure this targets the grid if still used */
+        grid-template-columns: 1fr; /* This is already default for mobile in HTML via grid-cols-2 */
+    }
+}
