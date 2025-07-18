@@ -40,8 +40,8 @@ function initRemoveWhitespace() {
             if (window.showGlobalMessage) window.showGlobalMessage('No file selected.', 'info');
             return;
         }
-        if (file.type !== 'image/png') {
-            if (window.showGlobalMessage) window.showGlobalMessage('Please upload a PNG image. This tool specifically targets transparent areas in PNGs.', 'error');
+        if (file.type !== 'image/png' && file.type !== 'image/webp') {
+            if (window.showGlobalMessage) window.showGlobalMessage('Please upload a PNG or WEBP image. This tool specifically targets transparent areas.', 'error');
             fileInput.value = ''; // Reset file input
             return;
         }
@@ -56,7 +56,7 @@ function initRemoveWhitespace() {
             const img = new Image();
             img.onload = () => {
                 try {
-                    cropTransparentSpace(img);
+                    cropTransparentSpace(img, file.type);
                 } catch (error) {
                     console.error("Error during image processing:", error);
                     if (window.showGlobalMessage) window.showGlobalMessage(`Error processing image: ${error.message}`, 'error');
@@ -81,7 +81,7 @@ function initRemoveWhitespace() {
         fileInput.value = ''; // Reset file input to allow re-uploading the same file
     }
 
-    function cropTransparentSpace(image) {
+    function cropTransparentSpace(image, fileType) {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: true }); // Important for performance with getImageData
         canvas.width = image.naturalWidth;
@@ -152,7 +152,8 @@ function initRemoveWhitespace() {
 
         outputContainer.innerHTML = ''; // Clear previous content (like "Upload a PNG...")
         outputContainer.appendChild(trimmedCanvas);
-
+        
+        const extension = fileType === 'image/webp' ? 'webp' : 'png';
         trimmedCanvas.toBlob(blob => {
             if (!blob) {
                 if(window.showGlobalMessage) window.showGlobalMessage('Error creating blob for download.', 'error');
@@ -162,12 +163,12 @@ function initRemoveWhitespace() {
             const link = document.createElement('a');
             link.href = url;
             const baseName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) || originalFileName;
-            link.download = `${baseName}-trimmed.png`;
+            link.download = `${baseName}-trimmed.${extension}`;
             link.className = 'btn btn-secondary mt-4'; // Tailwind + custom btn
             link.innerHTML = `<i class="fas fa-download mr-2"></i>Download Trimmed Image`;
             outputContainer.appendChild(link);
              if (window.showGlobalMessage) window.showGlobalMessage('Image trimmed successfully!', 'success');
-        }, 'image/png');
+        }, fileType);
     }
 }
 
