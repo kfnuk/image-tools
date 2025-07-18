@@ -1,15 +1,15 @@
 <div class="tool-section">
     <h2><i class="fas fa-magic" title="Remove Transparent Space"></i>Remove Transparent Space</h2>
 
-    <div id="rws-drop-zone" class="drop-zone mb-8" title="Drag and drop a PNG image or click to select a file">
+    <div id="rws-drop-zone" class="drop-zone mb-8" title="Drag and drop a PNG or WebP image or click to select a file">
         <i class="fas fa-file-image"></i>
-        <p class="font-semibold">Drop PNG image here or click to upload</p>
-        <p class="text-sm text-neutral-medium">(Only PNG with transparency supported)</p>
+        <p class="font-semibold">Drop PNG or WebP image here or click to upload</p>
+        <p class="text-sm text-neutral-medium">(Only PNG and WebP with transparency are supported)</p>
     </div>
-    <input type="file" id="rws-file-input" accept="image/png" class="hidden">
+    <input type="file" id="rws-file-input" accept="image/png,image/webp" class="hidden">
 
     <div id="rws-output" class="mt-6 flex flex-col items-center min-h-[100px]">
-        <p class="text-neutral-medium initial-message">Upload a PNG image to begin processing.</p>
+        <p class="text-neutral-medium initial-message">Upload a PNG or WebP image to begin processing.</p>
     </div>
      <div id="rws-loading" class="loading-spinner-container hidden">
         <div class="spinner"></div>
